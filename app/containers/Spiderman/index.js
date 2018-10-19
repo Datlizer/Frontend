@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { PieChart, Pie,LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -69,8 +69,23 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
           label.push(i);
         }
       }
+      if(this.props.match.params.type=="pie"){
+        count=1;
+        data=[];
+        carr=[];
+        label=[];
+        for(var i in map){
+          data.push({name:i,value:map[i]});
+          count++;
+          carr.push(count);
+          if(!label.includes(i)){
+            label.push(i);
+          }
+        }
+      }
       this.setState({dummy:false});
       console.log("data",data);
+
       }
 
 
@@ -80,9 +95,17 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
           var temp = {name:this.props.data[1].data[i],uv:this.props.data[2].data[i]};
           map.push(temp);
         }
+        if(this.props.match.params.type=="pie"){
+          map= [];
+          for(var i=0;i<this.props.data[1].data.length;i++){
+            var temp = {name:this.props.data[1].data[i],value:this.props.data[2].data[i]};
+            map.push(temp);
+          }
+        }
         data=map;
         console.log("data",data);
       }
+
     }
 
   }
@@ -99,22 +122,11 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
             <Row type="flex" justify="center" align="top">
               <Col span={16}>
                 {this.props.match.params.type=="pie"?
-                  <svg viewBox="0 0 400 400">
-                   <VictoryPie
-                     theme={VictoryTheme.material}
-                     standalone={false}
-                     width={400} height={400}
-                     data={data}
-                     innerRadius={68} labelRadius={100}
-                     style={{ labels: { fontSize: 20, fill: "white" } }}
-                   />
-                   <VictoryLabel
-                     textAnchor="middle"
-                     style={{ fontSize: 20 }}
-                     x={200} y={200}
-                     text=""
-                   />
-               </svg>:''
+                  <PieChart width={800} height={400}>
+                    <Pie data={data} cx={200} cy={200} outerRadius={150} fill="#8884d8"/>
+                    <Pie data={data} cx={200} cy={200} innerRadius={70} outerRadius={90} fill="#82ca9d" label/>
+                  </PieChart>
+                  :''
                 }
                 {this.props.match.params.type=="bar"?
                   <BarChart width={600} height={300} data={data}
@@ -123,7 +135,6 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
                    <XAxis dataKey="name"/>
                    <YAxis/>
                    <Tooltip/>
-                   <Legend />
                    <Bar dataKey="uv" fill="#82ca9d" />
                   </BarChart>
 
@@ -134,9 +145,8 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
                           margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                      <XAxis dataKey="name"/>
                      <YAxis/>
-                     <CartesianGrid strokeDasharray="3 3"/>
                      <Tooltip/>
-                     <Legend />
+
                      <Line dataKey="uv" stroke="#82ca9d" />
                     </LineChart>
                     :''}
