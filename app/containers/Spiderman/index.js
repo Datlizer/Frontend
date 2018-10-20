@@ -280,6 +280,7 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
           <Content style={{ margin: '0 16px' }}>
             <br />
             <br />
+
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
               <Row type="flex" justify="center" align="top">
                 <Col span={16}>
@@ -291,13 +292,13 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
                       onSearch={value => this.predictData(value)}
                     />
                     : ''}
-                  {this.state.predict ? 'Predicted answer is ' + this.state.ans : ''}
+                  {this.state.predict ? <h2><br/><br/>Predicted answer is {this.state.ans} </h2> : ''}
                 </Col>
               </Row>
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
-            Team Beta Testers
+            Datlizer 2018
           </Footer>
         </Layout>
       </Layout>

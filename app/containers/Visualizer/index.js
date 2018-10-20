@@ -174,7 +174,7 @@ export class Visualizer extends React.Component { // eslint-disable-line react/p
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
-            Team Co-ordi's @ Hackinout 2018
+            Datlizer 2018
           </Footer>
         </Layout>
       </Layout>
