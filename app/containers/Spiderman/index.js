@@ -19,15 +19,16 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectSpiderman from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import ReactDOM from 'react-dom';
 
-import { Table, Layout, Breadcrumb, Row, Col, Card, Form, Icon, Input, Button, Checkbox, Select, Option } from 'antd';
+import { Popover,Table,Layout, Breadcrumb, Row, Col,Card,Form, Icon, Input, Button, Checkbox, Select, Option } from 'antd';
 import Sidebar from 'components/Sidebar';
 import 'components/homepage.css';
 import styled from 'styled-components';
 import '../../../node_modules/react-vis/dist/style.css';
 import * as V from 'victory';
 import { VictoryBar, VictoryChart, VictoryLabel, VictoryPie, VictoryAxis, VictoryTheme } from 'victory';
-
+import FileSaver from 'file-saver'
 import regression from 'regression';
 let result;
 let gradient;
@@ -130,6 +131,24 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
     console.log('prediction of year 2018 is ', gradient * value + yIntercept);
     this.setState({ ans: ans, predict: true });
   }
+
+  // Exports the graph as embedded JS or PNG
+  exportChart(asSVG) {
+
+      // A Recharts component is rendered as a div that contains namely an SVG
+      // which holds the chart. We can access this SVG by calling upon the first child/
+      let chartSVG = ReactDOM.findDOMNode(this.currentChart).children[0];
+
+      if (asSVG) {
+          let svgURL = new XMLSerializer().serializeToString(chartSVG);
+          let svgBlob = new Blob([svgURL], {type: "image/svg+xml;charset=utf-8"});
+          FileSaver.saveAs(svgBlob, "Datlizer" + ".svg");
+      } else {
+          let svgBlob = new Blob([chartSVG.outerHTML], {type: "text/html;charset=utf-8"});
+          FileSaver.saveAs(svgBlob, "Datlizer" + ".html");
+      }
+  }
+
   render() {
 
     return (
@@ -141,16 +160,19 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
             <br />
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
               <Row type="flex" justify="center" align="top">
+                <Popover content="Download Chart as SVG">
+                  <Button onClick={()=>this.exportChart(true)} type="primary" shape="circle" icon="download" size='large' />
+                </Popover>
                 <Col span={16}>
                   {this.props.match.params.type == "pie" ?
-                    <PieChart width={800} height={400}>
+                    <PieChart ref={(chart) => this.currentChart = chart} id="currentChart" width={800} height={400}>
                       <Pie data={data} cx={200} cy={200} outerRadius={150} fill="#8884d8" />
                       <Pie data={data} cx={200} cy={200} innerRadius={70} outerRadius={90} fill="#82ca9d" label />
                     </PieChart>
                     : ''
                   }
                   {this.props.match.params.type == "bar" ?
-                    <BarChart width={600} height={300} data={data}
+                    <BarChart ref={(chart) => this.currentChart = chart} id="currentChart" width={600} height={300} data={data}
                       margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="name" />
@@ -162,7 +184,7 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
                     : ''}
 
                   {this.props.match.params.type == "line" ?
-                    <LineChart width={600} height={300} data={data}
+                    <LineChart ref={(chart) => this.currentChart = chart} id="currentChart" width={600} height={300} data={data}
                       margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                       <XAxis dataKey="name" />
                       <YAxis />
@@ -172,7 +194,7 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
                     </LineChart>
                     : ''}
                   {this.props.match.params.type == "composed" ?
-                    <ComposedChart width={730} height={250} data={data}>
+                    <ComposedChart ref={(chart) => this.currentChart = chart} id="currentChart" width={730} height={250} data={data}>
                       <XAxis dataKey="name" />
                       <YAxis />
                       <Tooltip />
@@ -183,7 +205,7 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
                     </ComposedChart>
                     : ''}
                   {this.props.match.params.type == "radar" ?
-                    <RadarChart outerRadius={90} width={730} height={250} data={data}>
+                    <RadarChart ref={(chart) => this.currentChart = chart} id="currentChart" outerRadius={90} width={730} height={250} data={data}>
                       <PolarGrid />
                       <PolarAngleAxis dataKey="subject" />
                       <PolarRadiusAxis angle={30} domain={[0, 150]} />
@@ -192,14 +214,14 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
                     </RadarChart>
                     : ''}
                   {this.props.match.params.type == "radialbar" ?
-                    <RadialBarChart width={730} height={250} innerRadius="10%" outerRadius="80%" data={data} startAngle={180} endAngle={0}>
+                    <RadialBarChart ref={(chart) => this.currentChart = chart} id="currentChart" width={730} height={250} innerRadius="10%" outerRadius="80%" data={data} startAngle={180} endAngle={0}>
                       <RadialBar minAngle={15} label={{ fill: '#666', position: 'insideStart' }} background clockWise={true} dataKey='uv' />
                       <Legend iconSize={10} width={120} height={140} layout='vertical' verticalAlign='middle' align="right" />
                       <Tooltip />
                     </RadialBarChart>
                     : ''}
                   {this.props.match.params.type == "scatter" ?
-                    <ScatterChart width={730} height={250}
+                    <ScatterChart ref={(chart) => this.currentChart = chart} id="currentChart" width={730} height={250}
                       margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="name" name="stature" unit="" />
