@@ -118,6 +118,20 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
 
                 </Col>
                 </Link>
+                <Link to="/display/composed">
+                <Col span={8}>
+                  <Card
+                    hoverable
+                    style={{ width: 240 }}
+                    cover={<img alt="example" src="https://chartbrew.com/static/media/pieChartPattern.03c8013b.png" />}
+                  >
+                    <Meta
+                      title="Composed Chart"
+                    />
+                  </Card>
+
+                </Col>
+                </Link>
                 <Col span={8}>
                   <Link to="/display/line">
                   <Card

@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 
-import { PieChart, Pie,LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { Area, ComposedChart, PieChart, Pie,LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -150,12 +150,23 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
                      <Line dataKey="uv" stroke="#82ca9d" />
                     </LineChart>
                     :''}
+                  {this.props.match.params.type=="composed"?
+                  	<ComposedChart width={730} height={250} data={data}>
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <CartesianGrid stroke="#f5f5f5" />
+                    <Bar dataKey="uv" barSize={20} fill="#413ea0" />
+                    <Line type="monotone" dataKey="uv" stroke="#ff7300" />
+                  </ComposedChart>
+                    :''}
               </Col>
             </Row>
           </div>
         </Content>
           <Footer style={{ textAlign: 'center' }}>
-            Team Co-ordi's @ Hackinout 2018
+            Team Beta Testers
           </Footer>
         </Layout>
       </Layout>
