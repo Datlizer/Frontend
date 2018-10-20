@@ -36,6 +36,7 @@ export default function App() {
         <Route exact path="/display/:type" component={Spiderman} />
         <Route exact path="/tables" component={Tables} />
         <Route exact path="/select" component={ReuseTable} />
+        <Route exact path="/fetch" component={ReuseTable} />
         <Route exact path="/charts" component={Charts} />
         <Route component={NotFoundPage} />
       </Switch>

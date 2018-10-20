@@ -21,10 +21,13 @@ import saga from './saga';
 
 import { Spin, Table, Layout, Breadcrumb, Row, Col, Card, Form, Icon, Input, Button, Checkbox, Select, Option } from 'antd';
 import Sidebar from 'components/Sidebar';
+import Nav from 'components/Nav';
 import 'components/homepage.css';
 import styled from 'styled-components';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { colRequest } from './actions';
+import { fetchConnRequest, ConnRequest } from 'containers/HomePage/actions';
+
 import './tables.css';
 const antIcon = <Icon type="loading" style={{ fontSize: 44 }} spin />;
 
@@ -79,6 +82,11 @@ const rowSelection = {
 
 
 export class ReuseTable extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount(){
+    const { history } = this.props;
+    let connection_name = localStorage.getItem('connection_name');
+    console.log(history.location.pathname);
+  }
   constructor(props) {
     super(props);
 
@@ -141,7 +149,7 @@ export class ReuseTable extends React.Component { // eslint-disable-line react/p
 
     return (
       <Layout style={{ minHeight: '100vh' }}>
-        <Sidebar />
+        <Nav />
         <Layout>
           <Content style={{ margin: '0 16px' }}>
             <br />

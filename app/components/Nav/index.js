@@ -31,8 +31,11 @@ class Nav extends React.Component { // eslint-disable-line react/prefer-stateles
     if(pathn==="/"){
       this.setState({ defaultSelectedKeys: ['1'] });
     }
-    else{
+    else if(pathn==="add"){
       this.setState({ defaultSelectedKeys: ['2'] });
+    }
+    else{
+      this.setState({ defaultSelectedKeys: ['3'] });
     }
   }
   change = (a, b) => {
@@ -60,6 +63,10 @@ class Nav extends React.Component { // eslint-disable-line react/prefer-stateles
           <Menu.Item key="2" onClick={() => this.change('/add', ['2'])}>
             <Icon type="desktop" />
             <span>Add New Connection</span>
+          </Menu.Item>
+          <Menu.Item key="3" onClick={() => this.change('/fetch', ['3'])}>
+            <Icon type="download" />
+            <span>Fetch Tables</span>
           </Menu.Item>
         </Menu>
       </Sider>

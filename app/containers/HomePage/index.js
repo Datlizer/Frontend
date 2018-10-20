@@ -102,6 +102,7 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
       const { history } = this.props;
       console.log("asd", connection);
       const connection_name = connection;
+      localStorage.setItem('connection_name',connection_name);
       this.props.dispatch(ConnRequest({ connection_name, history }));
     }
     else {
