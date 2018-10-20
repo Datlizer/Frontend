@@ -152,8 +152,11 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
             <br />
 
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+              <Row>
+
               {dataTable.map((data) =>
               this.state.load_indicator == 0 ?
+              <Col span={8}>
                 <Card
                   key={data.name}
                   style={{ width: 300 }}
@@ -165,8 +168,10 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
                     title="Card title"
                     description="This is the description"
                   />
-                </Card> 
+                </Card>
+              </Col>
                 :
+                <Col span={8}>
                 <Card
                   key={data.name}
                   style={{ width: 300 }}
@@ -179,7 +184,9 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
                     description="This is the description"
                   />
                 </Card>
+              </Col>
               )}
+            </Row>
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>

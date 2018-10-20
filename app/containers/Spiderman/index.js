@@ -30,6 +30,8 @@ import * as V from 'victory';
 import { VictoryBar, VictoryChart, VictoryLabel, VictoryPie, VictoryAxis, VictoryTheme } from 'victory';
 import FileSaver from 'file-saver'
 import regression from 'regression';
+import Nav from 'components/Nav/Loadable';
+
 let result;
 let gradient;
 let yIntercept;
@@ -176,7 +178,7 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
 
     return (
       <Layout style={{ minHeight: '100vh' }}>
-        <Sidebar />
+        <Nav />
         <Layout>
           <Content style={{ margin: '0 16px' }}>
             <br />

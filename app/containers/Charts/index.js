@@ -63,7 +63,7 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
         <Layout>
           <Content style={{ margin: '0 16px' }}>
             <br/>
-            <br/> 
+            <br/>
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
               <Row gutter={0}>
                 <Col span={8}>
@@ -168,11 +168,13 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
                     />
                   </Card>
                   </Link>
+                </Col>
+                  <Col span={8}>
                   <Link to="/display/custom">
                   <Card
                     hoverable
                     style={{ width: 340 }}
-                    cover={<img alt="example" src="./custom.png" />}
+                    cover={<img alt="example" src={require("./custom.png")} />}
                   >
                     <Meta
                       title="Custom Bar Chart"
@@ -182,7 +184,7 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
                 </Col>
 
               </Row>
-              
+
 
             </div>
           </Content>

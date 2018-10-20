@@ -16,7 +16,7 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectTables from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-
+import Nav from 'components/Nav/Loadable';
 import { Table,Layout, Breadcrumb, Row, Col,Card,Form, Icon, Input, Button, Checkbox, Select, Option } from 'antd';
 import Sidebar from 'components/Sidebar';
 import 'components/homepage.css';
@@ -120,7 +120,7 @@ export class Tables extends React.Component { // eslint-disable-line react/prefe
 
     return (
       <Layout style={{ minHeight: '100vh' }}>
-        <Sidebar />
+        <Nav />
         <Layout>
           <Content style={{ margin: '0 16px' }}>
           <br/>
