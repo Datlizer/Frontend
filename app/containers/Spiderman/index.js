@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 
-import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ComposedChart, PieChart, Pie, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { RadarChart, RadialBarChart, RadialBar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ComposedChart, PieChart, Pie, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -190,6 +190,13 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
                       <Radar name="Sales in an year" dataKey="uv" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
                       <Legend />
                     </RadarChart>
+                    : ''}
+                  {this.props.match.params.type == "radialbar" ?
+                    <RadialBarChart width={730} height={250} innerRadius="10%" outerRadius="80%" data={data} startAngle={180} endAngle={0}>
+                      <RadialBar minAngle={15} label={{ fill: '#666', position: 'insideStart' }} background clockWise={true} dataKey='uv' />
+                      <Legend iconSize={10} width={120} height={140} layout='vertical' verticalAlign='middle' align="right" />
+                      <Tooltip />
+                    </RadialBarChart>
                     : ''}
                 </Col>
               </Row>
