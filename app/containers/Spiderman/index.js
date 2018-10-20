@@ -28,22 +28,29 @@ import '../../../node_modules/react-vis/dist/style.css';
 import * as V from 'victory';
 import { VictoryBar, VictoryChart,VictoryLabel, VictoryPie, VictoryAxis,VictoryTheme } from 'victory';
 
+import regression from 'regression';
+let result;
+let gradient;
+let yIntercept;
+
 const { Header, Footer ,Content } = Layout;
 let carr=[];
 let label=[];
 let data=[];
 let labelData=[];
-
+var dataset=[];
 const spider = [{name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
 {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
 {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
 {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
 {name: 'Page E', uv: 1890, pv: 4800, amt: 2181}]
 
+const Search = Input.Search;
+
 export class Spiderman extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    this.state = {dummy: true};
+    this.state = {dummy: true,ans:0,predict:false};
   }
   componentWillMount(){
     console.log("chart type is ",this.props.match.params.type);
@@ -91,10 +98,13 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
 
       if(this.props.data.length==3){
         var map= [];
+
         for(var i=0;i<this.props.data[1].data.length;i++){
+          dataset.push([this.props.data[1].data[i],this.props.data[2].data[i]]);
           var temp = {name:this.props.data[1].data[i],uv:this.props.data[2].data[i]};
           map.push(temp);
         }
+
         if(this.props.match.params.type=="pie"){
           map= [];
           for(var i=0;i<this.props.data[1].data.length;i++){
@@ -110,7 +120,17 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
 
   }
 
+  predictData=(value)=>{
+    console.log(value);
+    result = regression.linear(dataset);
+    gradient = result.equation[0];
+    yIntercept = result.equation[1];
+    let ans=gradient*value+yIntercept;
+    console.log('prediction of year 2018 is ',gradient*value+yIntercept);
+    this.setState({ans:ans,predict:true});
+  }
   render() {
+
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Sidebar />
@@ -161,6 +181,26 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
                     <Line type="monotone" dataKey="uv" stroke="#ff7300" />
                   </ComposedChart>
                     :''}
+              </Col>
+            </Row>
+          </div>
+        </Content>
+        <br/>
+          <Content style={{ margin: '0 16px' }}>
+          <br/>
+          <br/>
+            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+            <Row type="flex" justify="center" align="top">
+              <Col span={16}>
+                {this.props.data.length==3?
+                  <Search
+                      placeholder="input data to be predicted"
+                      enterButton="Predict"
+                      size="large"
+                      onSearch={value => this.predictData(value)}
+                    />
+                  :''}
+                  {this.state.predict?'Predicted answer is '+this.state.ans:''}
               </Col>
             </Row>
           </div>
