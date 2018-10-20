@@ -127,11 +127,21 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
     if (this.props.connections) {
       if (reren) {
         for (let i in this.props.connections) {
+          let img_addr = "";
+          if(this.props.connections[i].db_type == "psql")
+          {
+            img_addr = "./psql.png";
+          }
+          else
+          {
+            img_addr = "./mysql.png";
+          }
           let x = {
             key: count,
             name: this.props.connections[i].connection_name,
             address: this.props.connections[i].address,
-            type: this.props.connections[i].db_type
+            type: this.props.connections[i].db_type,
+            img_addr: img_addr
           }
           count++;
           dataTable.push(x);
@@ -160,13 +170,12 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
                 <Card
                   key={data.name}
                   style={{ width: 300 }}
-                  cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
+                  cover={<img alt="example" src={require(`${data.img_addr}`)} />}
                   actions={[<Icon onClick={() => this.conn(data.name)} type="check" theme="outlined" />]}
                 >
                   <Meta
-                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                    title="Card title"
-                    description="This is the description"
+                    title={"Connection Name: " + data.name}
+                    description={"Address: " + data.address}
                   />
                 </Card>
               </Col>
@@ -175,13 +184,12 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
                 <Card
                   key={data.name}
                   style={{ width: 300 }}
-                  cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
+                  cover={<img alt="example" src={require(`${data.img_addr}`)} />}
                   actions={[<Icon type="loading" theme="outlined" />]}
                 >
                   <Meta
-                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                    title="Card title"
-                    description="This is the description"
+                    title={"Connection Name: " + data.name}
+                    description={"Address: " + data.address}
                   />
                 </Card>
               </Col>
