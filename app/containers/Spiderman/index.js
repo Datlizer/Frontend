@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 
-import { RadarChart, RadialBarChart, RadialBar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ComposedChart, PieChart, Pie, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { Scatter, ZAxis, ScatterChart, RadarChart, RadialBarChart, RadialBar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ComposedChart, PieChart, Pie, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -197,6 +197,17 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
                       <Legend iconSize={10} width={120} height={140} layout='vertical' verticalAlign='middle' align="right" />
                       <Tooltip />
                     </RadialBarChart>
+                    : ''}
+                  {this.props.match.params.type == "scatter" ?
+                    <ScatterChart width={730} height={250}
+                      margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" name="stature" unit="" />
+                      <YAxis dataKey="uv" name="weight" unit=" units" />
+                      <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                      <Legend />
+                      <Scatter name="A school" data={data} fill="#8884d8" />
+                    </ScatterChart>
                     : ''}
                 </Col>
               </Row>
