@@ -168,6 +168,17 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
                     />
                   </Card>
                   </Link>
+                  <Link to="/display/custom">
+                  <Card
+                    hoverable
+                    style={{ width: 340 }}
+                    cover={<img alt="example" src="https://chartbrew.com/static/media/timeSeries.2fc45fbf.PNG" />}
+                  >
+                    <Meta
+                      title="Line Chart"
+                    />
+                  </Card>
+                  </Link>
                 </Col>
 
               </Row>

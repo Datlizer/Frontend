@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 
-import { Scatter, ZAxis, ScatterChart, RadarChart, RadialBarChart, RadialBar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ComposedChart, PieChart, Pie, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { Cell,Scatter, ZAxis, ScatterChart, RadarChart, RadialBarChart, RadialBar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ComposedChart, PieChart, Pie, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -40,11 +40,34 @@ let label = [];
 let data = [];
 let labelData = [];
 var dataset = [];
+const colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf", "#bcbd22", "#bcbd22", "#bcbd22", "#bcbd22", "#bcbd22"];
 const spider = [{ name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
 { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
 { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
 { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
 { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 }]
+
+const getPath = (x, y, width, height) => {
+  return `M${x},${y + height}
+          C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3} ${x + width / 2}, ${y}
+          C${x + width / 2},${y + height / 3} ${x + 2 * width / 3},${y + height} ${x + width}, ${y + height}
+          Z`;
+};
+
+const TriangleBar = (props) => {
+  const { x, y, width, height } = props.background;
+  const { fill } = props;
+  console.log("pop",props);
+  return <path d={getPath(x, y, width, height)} stroke="none" fill={fill}/>;
+};
+
+TriangleBar.propTypes = {
+  fill: PropTypes.string,
+  x: PropTypes.number,
+  y: PropTypes.number,
+  width: PropTypes.number,
+  height: PropTypes.number,
+};
 
 const Search = Input.Search;
 
@@ -231,6 +254,22 @@ export class Spiderman extends React.Component { // eslint-disable-line react/pr
                       <Scatter name="A school" data={data} fill="#8884d8" />
                     </ScatterChart>
                     : ''}
+                    {this.props.match.params.type == "custom" ?
+                      <BarChart width={600} height={300} data={data}
+                            margin={{top: 20, right: 30, left: 20, bottom: 5}}>
+                       <XAxis dataKey="name"/>
+                       <YAxis/>
+                       <CartesianGrid strokeDasharray="3 3"/>
+                       <Bar dataKey="uv" fill="#8884d8" shape={<TriangleBar/>} label={{ position: 'top' }}>
+                         {
+                            data.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={colors[index % 20]}/>
+                            ))
+                          }
+                       </Bar>
+                      </BarChart>
+                      : ''}
+
                 </Col>
               </Row>
             </div>
