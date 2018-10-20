@@ -64,30 +64,8 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
           <Content style={{ margin: '0 16px' }}>
             <br />
             <br />
-              <LineChart width={400} height={400} data={[{name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-      {uv: 3000, pv: 1398, amt: 2210},
-      {uv: 2000, pv: 9800, amt: 2290},
-      {uv: 2780, pv: 3908, amt: 2000},
-      {uv: 1890, pv: 4800, amt: 2181},
-      {uv: 2390, pv: 3800, amt: 2500},
-      {uv: 3490, pv: 4300, amt: 2100}]}>
-                <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-              </LineChart>
-              <RadialChart
-              data={data2}
-              width={300}
-              height={300} />
-              <XYPlot height={300} width={300}>
-               <LineSeries data={data} />
-             </XYPlot>
-             <XYPlot yDomain={[0, 300]} xType="ordinal" height={300} width={300}>
-             <VerticalBarSeries data={data} />
-              </XYPlot>
-              <XYPlot height={300} width={300}>
-                <XAxis />
-                <YAxis />
-                <HeatmapSeries colorRange={["red", "blue"]} data={data}/>
-               </XYPlot>
+
+
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
               <Row gutter={0}>
                 <Col span={8}>
@@ -95,7 +73,7 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
                   <Card
 
                     hoverable
-                    style={{ width: 240 }}
+                    style={{ width: 340 }}
                     cover={<img alt="example" src="https://chartbrew.com/static/media/timeSeriesBar.3e08944c.PNG" />}
                   >
                     <Meta
@@ -108,7 +86,7 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
                 <Col span={8}>
                   <Card
                     hoverable
-                    style={{ width: 240 }}
+                    style={{ width: 300 }}
                     cover={<img alt="example" src="https://chartbrew.com/static/media/pieChartPattern.03c8013b.png" />}
                   >
                     <Meta
@@ -122,7 +100,7 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
                 <Col span={8}>
                   <Card
                     hoverable
-                    style={{ width: 240 }}
+                    style={{ width: 300 }}
                     cover={<img alt="example" src="https://chartbrew.com/static/media/pieChartPattern.03c8013b.png" />}
                   >
                     <Meta
@@ -132,12 +110,15 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
 
                 </Col>
                 </Link>
+              </Row>
+              <br/>
+                <Row gutter={0}>
                 <Link to="/display/radar">
                 <Col span={8}>
                   <Card
                     hoverable
-                    style={{ width: 240 }}
-                    cover={<img alt="example" src="https://chartbrew.com/static/media/pieChartPattern.03c8013b.png" />}
+                    style={{ width: 340 }}
+                    cover={<img alt="example" src="https://chartbrew.com/static/media/radarChart.63a285ab.PNG" />}
                   >
                     <Meta
                       title="Radar Chart"
@@ -150,8 +131,8 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
                 <Col span={8}>
                   <Card
                     hoverable
-                    style={{ width: 240 }}
-                    cover={<img alt="example" src="https://chartbrew.com/static/media/pieChartPattern.03c8013b.png" />}
+                    style={{ width: 320 }}
+                    cover={<img alt="example" src="https://i.stack.imgur.com/5QPJh.png" />}
                   >
                     <Meta
                       title="Radial Bar Chart"
@@ -164,8 +145,8 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
                 <Col span={8}>
                   <Card
                     hoverable
-                    style={{ width: 240 }}
-                    cover={<img alt="example" src="https://chartbrew.com/static/media/pieChartPattern.03c8013b.png" />}
+                    style={{ width: 280 }}
+                    cover={<img alt="example" src="https://www.mathsisfun.com/data/images/scatter-ice-cream1.svg" />}
                   >
                     <Meta
                       title="Scatter Chart"
@@ -174,11 +155,14 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
 
                 </Col>
                 </Link>
+              </Row>
+              <br/>
+              <Row>
                 <Col span={8}>
                   <Link to="/display/line">
                   <Card
                     hoverable
-                    style={{ width: 240 }}
+                    style={{ width: 340 }}
                     cover={<img alt="example" src="https://chartbrew.com/static/media/timeSeries.2fc45fbf.PNG" />}
                   >
                     <Meta
@@ -190,46 +174,6 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
 
               </Row>
               <br/><br/>
-              <Row gutter={0}>
-                <Col span={8}>
-                  <Card
-                    onClick={()=>{console.log("i")}}
-                    hoverable
-                    style={{ width: 240 }}
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                  >
-                    <Meta
-                      title="Europe Street beat"
-                      description="www.instagram.com"
-                    />
-                  </Card>
-                </Col>
-                <Col span={8}>
-                  <Card
-                    hoverable
-                    style={{ width: 240 }}
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                  >
-                    <Meta
-                      title="Europe Street beat"
-                      description="www.instagram.com"
-                    />
-                  </Card>
-                </Col>
-                <Col span={8}>
-                  <Card
-                    hoverable
-                    style={{ width: 240 }}
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                  >
-                    <Meta
-                      title="Europe Street beat"
-                      description="www.instagram.com"
-                    />
-                  </Card>
-                </Col>
-
-              </Row>
 
             </div>
           </Content>

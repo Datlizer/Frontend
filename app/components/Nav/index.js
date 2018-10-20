@@ -24,6 +24,20 @@ class Nav extends React.Component { // eslint-disable-line react/prefer-stateles
     });
   }
 
+  componentWillRecieveProps(newProps){
+    const { history } = newProps.props;
+    console.log(history.location.pathname);
+    const pathn=history.location.pathname;
+    if(pathn==="/"){
+      this.setState({ defaultSelectedKeys: ['1'] });
+    }
+    else if(pathn==="add"){
+      this.setState({ defaultSelectedKeys: ['2'] });
+    }
+    else{
+      this.setState({ defaultSelectedKeys: ['3'] });
+    }
+  }
   componentWillMount(){
     const { history } = this.props;
     console.log(history.location.pathname);
@@ -55,7 +69,7 @@ class Nav extends React.Component { // eslint-disable-line react/prefer-stateles
         onCollapse={this.toggle}
       >
         <div className="logo" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+        <Menu theme="dark" defaultSelectedKeys={this.state.defaultSelectedKeys} mode="inline">
           <Menu.Item key="1" onClick={() => this.change('/', ['1'])}>
             <Icon type="pie-chart" />
             <span>Connections</span>
