@@ -172,10 +172,10 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
                   <Card
                     hoverable
                     style={{ width: 340 }}
-                    cover={<img alt="example" src="https://chartbrew.com/static/media/timeSeries.2fc45fbf.PNG" />}
+                    cover={<img alt="example" src="./custom.png" />}
                   >
                     <Meta
-                      title="Line Chart"
+                      title="Custom Bar Chart"
                     />
                   </Card>
                   </Link>
