@@ -27,17 +27,17 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import { fetchConnRequest, ConnRequest } from './actions';
 import './homepage.css'
 import * as V from 'victory';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
-
+import { Avatar } from 'antd';
+const { Meta } = Card;
 const antIcon = <Icon type="loading" style={{ fontSize: 44 }} spin />;
 
 const { Header, Footer, Content } = Layout;
 let data = [];
 let count = 1;
 let dataTable = [];
-let selectedCount=0;
-let connection="";
-let reren=true;
+let selectedCount = 0;
+let connection = "";
+let reren = true;
 const columns = [{
   title: 'Connection Name',
   dataIndex: 'name',
@@ -81,19 +81,13 @@ const rowSelection = {
 };
 
 export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
-      indicator: "hidden",
+      load_indicator: 0,
       button_class: "login-form-button"
     }
-
-    this.load_indicator = this.load_indicator.bind(this);
-  }
-
-  load_indicator(){
-    this.setState({indicator:'',button_class:'hidden'})
   }
 
   submitConn = (values) => {
@@ -102,12 +96,20 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
       const { history } = this.props;
       console.log("asd", connection);
       const connection_name = connection;
-      localStorage.setItem('connection_name',connection_name);
+      localStorage.setItem('connection_name', connection_name);
       this.props.dispatch(ConnRequest({ connection_name, history }));
     }
     else {
       console.log("Select only 1 connection");
     }
+  }
+
+  conn = (connection_name) => {
+    this.setState({load_indicator:1});
+    console.log(selectedCount);
+    const { history } = this.props;
+    localStorage.setItem('connection_name', connection_name);
+    this.props.dispatch(ConnRequest({ connection_name, history }));
   }
 
   componentDidMount() {
@@ -122,21 +124,21 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
   }
 
   render() {
-    if(this.props.connections){
-      if(reren){
-        for(let i in this.props.connections){
-          let x={
-            key:count,
-            name:this.props.connections[i].connection_name,
-            address:this.props.connections[i].address,
-            type:this.props.connections[i].db_type
+    if (this.props.connections) {
+      if (reren) {
+        for (let i in this.props.connections) {
+          let x = {
+            key: count,
+            name: this.props.connections[i].connection_name,
+            address: this.props.connections[i].address,
+            type: this.props.connections[i].db_type
           }
           count++;
           dataTable.push(x);
         }
       }
-      reren=false;
-      console.log("ooo",dataTable);
+      reren = false;
+      console.log("ooo", dataTable);
 
     }
 
@@ -148,16 +150,36 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
           <Content style={{ margin: '0 16px' }}>
             <br />
             <br />
+
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-              <form onSubmit={this.props.handleSubmit(values => this.submitConn(values))}>
-                <Table columns={columns} rowSelection={rowSelection} dataSource={dataTable} />
-                <Button block onClick={this.load_indicator} type="primary" htmlType="submit" className={this.state.button_class}>
-                  Select Connection
-                </Button>
-                <Row className={this.state.indicator}>
-                  <Col span={6} offset={11}><Spin indicator={antIcon} size="large" /></Col>
-                </Row>
-              </form>
+              {dataTable.map((data) =>
+              this.state.load_indicator == 0 ?
+                <Card
+                  key={data.name}
+                  style={{ width: 300 }}
+                  cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
+                  actions={[<Icon onClick={() => this.conn(data.name)} type="check" theme="outlined" />]}
+                >
+                  <Meta
+                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                    title="Card title"
+                    description="This is the description"
+                  />
+                </Card> 
+                :
+                <Card
+                  key={data.name}
+                  style={{ width: 300 }}
+                  cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
+                  actions={[<Icon type="loading" theme="outlined" />]}
+                >
+                  <Meta
+                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                    title="Card title"
+                    description="This is the description"
+                  />
+                </Card>
+              )}
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
