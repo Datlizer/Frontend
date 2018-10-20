@@ -62,15 +62,8 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
         <Nav />
         <Layout>
           <Content style={{ margin: '0 16px' }}>
-<<<<<<< Updated upstream
-            <br />
-            <br />
-
-
-=======
             <br/>
             <br/> 
->>>>>>> Stashed changes
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
               <Row gutter={0}>
                 <Col span={8}>
@@ -178,11 +171,7 @@ export class Charts extends React.Component { // eslint-disable-line react/prefe
                 </Col>
 
               </Row>
-<<<<<<< Updated upstream
-              <br/><br/>
-=======
               
->>>>>>> Stashed changes
 
             </div>
           </Content>
