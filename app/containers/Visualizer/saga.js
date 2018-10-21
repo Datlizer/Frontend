@@ -55,13 +55,6 @@ function* colReq() {
 
 function sendRequest({ db_type,connection_name,name,address,password,username,port }) {
   // console.log(username, password, 'test');
-  port=5433;
-  db_type="psql";
-  connection_name="mydb";
-  name="prototype";
-  address="127.0.0.1";
-  username="anupam";
-  password="anupam";
   return fetch(`${URL}`, {
     method: 'POST',
     headers: {
