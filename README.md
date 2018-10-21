@@ -56,8 +56,10 @@ NOTE : make sure you have postgres installed in your system and enter your datab
 * Postgresql
 * MySQL
 * MongoDB ( Coming soon )
+
 ## Future Work
 * Add query based fetching of data
+* Download data as CSV
 * Add more type of charts available
 * Show only meaningful charts instead of all
 * Plot against more number of columns
